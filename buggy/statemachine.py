@@ -1,6 +1,3 @@
-from django.utils.functional import cached_property
-
-
 transitions = set()
 
 
@@ -32,7 +29,7 @@ class State(object):
         state.validate(move_kwargs)
         self.bug.comments.create(**move_kwargs)
 
-    @cached_property
+    @property
     def possibilities(self):
         return [transition[1] for transition in transitions
                 if transition[0] is type(self)]
@@ -52,13 +49,23 @@ class State(object):
         return kwargs
 
 
-class New(State):
+class Embryo(State):
     pass
+
+
+class New(State):
+    requires = ['title']
+
+transitions.add((Embryo, New))
 
 
 class Resolved(State):
     assign_to = CREATOR
 
+transitions.add((New, Resolved))
+
 
 class Verified(State):
     pass
+
+transitions.add((Resolved, Verified))
