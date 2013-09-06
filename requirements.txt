@@ -1,0 +1,2 @@
+-e git://github.com/django/django.git@529afa7138c6bd5efb4c6ac995597d2f25611d73#egg=Django-dev
+django-authtools==0.2.1

@@ -1,0 +1,24 @@
+{% extends "buggy/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans 'Bug List' %}{% endblock %}
+
+{% block content %}
+<h1>{{ bug }}</h1>
+
+<table>
+  <tr>
+    <th>{% trans '#' %}</th>
+    <th>{% trans 'Title' %}</th>
+    <th>{% trans 'Assigned to' %}</th>
+  </tr>
+{% for bug in object_list %}
+  <tr>
+    <td>{{ bug.number }}</td>
+    <td><a href="{% url 'buggy:bug_detail' pk=bug.pk %}">{{ bug.title }}</a></td>
+    <td>{{ bug.assigned_to }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}

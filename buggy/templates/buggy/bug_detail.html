@@ -1,0 +1,19 @@
+{% extends "buggy/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ bug }} {{ block.super }}{% endblock %}
+
+{% block content %}
+<h1>{{ bug }}</h1>
+
+{% for comment in bug.comments.all %}
+<article>
+  {{ comment.user.get_short_name }} commented on <time datetime="{{ comment.created_at|date:'c' }}" pubdate>{{ comment.created_at }}</time>
+
+  {% for attr, value in comment.changelist %}
+  Set {{ attr }} to {{ value }}
+  {% endfor %}
+</article>
+{% endfor %}
+{% endblock %}
